@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var index = require('./routes/index');
 var manageCar=require('./routes/manageCar');
 var rentCar=require('./routes/rentCar');
@@ -29,9 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/car',manageCar);
-app.use('/rent',rentCar);
-app.use('/repair',repair);
-app.use('/return',rentCar);
+//app.use('/rent',rentCar);
+//app.use('/repair',repair);
+//app.use('/return',returnCar);
 
 
 //404处理页面
@@ -66,3 +65,10 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+var photopath="memem";
+//console.log(__dirname);
+
+
+
+

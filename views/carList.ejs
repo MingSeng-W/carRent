@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="Page Description">
+        <meta name="author" content="wanghongjie">
+        <title><%=title%></title>
+
+        <!-- Bootstrap -->
+        <link href="/stylesheets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/stylesheets/common.css">
+        <!--<link rel="stylesheet" href="../public/stylesheets/common.css">-->
+
+        <!--<link href="../public/stylesheets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
+        <!--<script src="../public/stylesheets/bootstrap/dist/js/bootstrap.min.js"></script>-->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body >
+    <div class="container">
+        <%- include header.ejs%>
+        <a class="btn btn-primary" data-toggle="modal" href="#modal-id">添加汽车</a>
+        <div class="modal fade" id="modal-id">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+
+        			<div class="modal-body">
+                        <form action="/car/add" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <!--<legend><h2>添加汽车</h2></legend>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="carnum" class="col-sm-2 control-label">车牌号</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="carnum"  name="car[carNum]">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="carpicture" class="col-sm-2 control-label">汽车图片</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" id="carpicture" placeholder="" name="carpic">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="carinfo" class="col-sm-2 control-label">汽车信息</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="carinfo" placeholder="" name="car[info]">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="carbrand" class="col-sm-2 control-label">Carbrand</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="carbrand" placeholder="Carbrand" name="car[brand]">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="carisrent" class="col-sm-2 control-label">Carisrent</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="carisrent" placeholder="Carisrent" name="car[isRent]">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="carpriceinfo" class="col-sm-2 control-label">Carpriceinfo</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="carpriceinfo" placeholder="Carpriceinfo" name="car[rentPriceInfo]">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+        			<div class="modal-footer">
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        				<button type="button" class="btn btn-primary">Save changes</button>
+        			</div>
+        		</div><!-- /.modal-content -->
+        	</div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div class="panel panel-default">
+        	<div class="panel-body">
+        	 <div class="table-responsive ">
+        	 	<table class="table table-hover table-bordered">
+        	 		<thead>
+        	 			<tr >
+        	 				<th class="text-center">汽车编号</th>
+        	 				<th class="text-center">驾照号码</th>
+        	 				<th class="text-center">是否已经租出</th>
+        	 				<th class="text-center">价格信息</th>
+                            <th class="text-center">操作</th>
+                            <th class="text-center">查看详情</th>
+
+        	 			</tr>
+        	 		</thead>
+        	 		<tbody>
+
+        	 			<tr>
+        	 				<td class="text-center">1</td>
+        	 				<td class="text-center">川A2344</td>
+        	 				<td class="text-center">是</td>
+        	 				<td class="text-center">4000元起</td>
+        	 				<td class="text-center"><span class="btn btn-danger">删除</span></td>
+                            <td class="text-center"><a href="" class="btn btn-primary">查看详情</a></td>
+        	 			</tr>
+        	 		</tbody>
+        	 	</table>
+        	 </div>
+        	</div>
+        </div>
+
+           </div>
+
+    <!--<a href="/car/add" class="btn btn-lg btn-success">添加车辆</a>-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/stylesheets/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+
+
+</html>

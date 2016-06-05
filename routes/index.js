@@ -3,7 +3,6 @@ var router = express.Router();
 var car=require('../model/model').car;
 var repair=require('../model/model').repair;
 var order=require('../model/model').order;
-
 //主页
 router.get('/', function(req, res, next) {
   //显示汽车的轮播图
