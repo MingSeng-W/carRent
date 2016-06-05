@@ -5,15 +5,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
+var index = require('./routes/index');
+var manageCar=require('./routes/manageCar');
+var rentCar=require('./routes/rentCar');
+var repair=require('./routes/repair');
+var returnCar=require('./routes/returnCar');
 var app = express();
 
 //设置视图引擎
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('view cache',false);
 
+//设置项目的上传图片路径
+app.set('carPhoto',__dirname+'public/images');
 //设置静态资源目录
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -21,7 +26,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+
+app.use('/', index);
+app.use('/car',manageCar);
+app.use('/rent',rentCar);
+app.use('/repair',repair);
+app.use('/return',rentCar);
 
 
 //404处理页面

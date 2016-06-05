@@ -3,17 +3,17 @@
  */
 var mongoose=require('mongoose');
 mongoose.connect('mongodb://localhost/carrent');
-
 var car=new mongoose.Schema({
     carIndexNum:ObjectId,
-    carnum:{type:Number,unique:true},
+    carNum:{type:String,unique:true},
     description:{
         photo:String,
         info:String,
         brand:String
     },
     isRent:Boolean,
-    rentPriceInfo:String
+    rentPriceInfo:String,
+    status:String
 });
 
 
@@ -21,17 +21,20 @@ var repair=new mongoose.Schema(
     {
         repairDate:Date,
         repairIndex:ObjectId,
-        carIndexNum:Number,
-        amount:Number
-
+        carIndexNum:{type:Number,ref:'car'},
+        amount:Number,
+        status:Number
     }
 );
 
 var order=new mongoose.Schema({
     orderIndex:ObjectId,
-    carIndexNum:Number,
-    brrowDate:Date,
-    returnDate:Date,
+    carIndexNum:{type:num},
+    rent:{
+        brrowDate:{type:Date,default:Date.now()},
+        status:String
+    },
+
     person:{
         name:String,
         age:String,
@@ -40,13 +43,18 @@ var order=new mongoose.Schema({
         licenseNumber:Number,
         address:String
     },
-    getcarLocation:String,
+    returncar:{
+       returnDate:Date,
+        status:String
+    },
     amount:Number
+
 });
 
 var admin=new mongoose.Schema({
     username:ObjectId,
-    password:String
+    password:String,
+    status:Number
 });
 
 exports.car=mongoose.model('car',car);

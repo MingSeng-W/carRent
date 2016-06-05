@@ -34,4 +34,6 @@ router.get('/', function(req, res, next) {
       });
         res.render('index',{title:'首页',indexcar:doc1,carOrder:doc2,carRepair:doc3})
 });
+
+
 module.exports = router;
