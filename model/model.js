@@ -11,7 +11,8 @@ var car=new mongoose.Schema({
         info:String,
         brand:String,
     //},
-    //isRent:String,
+    isRent:String,
+    //isRent:'0'代表可借,'1'代表不可借
     rentPriceInfo:String,
     status:String
 });
@@ -32,32 +33,40 @@ var order=new mongoose.Schema({
     carIndexNum:{type:Number,ref:'car'},
     rent:{
         brrowDate:{type:Date,default:Date.now()},
+//        '0'未删除,'1'已删除
         status:String
     },
 
     person:{
         name:String,
         age:String,
-        idcard:Number,
-        bankcard:Number,
-        licenseNumber:Number,
+        idcard:String,
+        bankcard:String,
+        licenseNumber:String,
         address:String
     },
-    returncar:{
-       returnDate:Date,
-        status:String
-    },
-    amount:Number
+    //'0'代表交易完成,'1'代表正在进行中
+    status:String
 
+});
+
+var returncar=new mongoose.Schema({
+    //carIndexNum:{type:Number,ref:'car'},
+    orderIndex:{type:Number,ref:'order'},
+    returnDate:Date,
+    amount:Number,
+    // '0'未删除,'1'已删除
+    status:String
 });
 
 var admin=new mongoose.Schema({
     username:String,
     password:String,
-    status:Number
+    status:String
 });
 
 exports.car=mongoose.model('car',car);
 exports.repair=mongoose.model('repair',repair);
 exports.order=mongoose.model('order',order);
 exports.admin=mongoose.model('admin',admin);
+exports.returncar=mongoose.model('returncar',returncar);

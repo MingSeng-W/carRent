@@ -20,17 +20,17 @@ app.set('view cache',false);
 app.set('carPhoto',__dirname+'public/images');
 //设置静态资源目录
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit:'1mb'}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', index);
 app.use('/car',manageCar);
-//app.use('/rent',rentCar);
+app.use('/rent',rentCar);
 //app.use('/repair',repair);
-//app.use('/return',returnCar);
+app.use('/return',rentCar);
 
 
 //404处理页面
@@ -66,8 +66,6 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-var photopath="memem";
-//console.log(__dirname);
 
 
 

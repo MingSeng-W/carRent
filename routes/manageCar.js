@@ -24,6 +24,8 @@ router.get('/',function(req,res,next){
 
 router.post('/add',upload.single('carpic'),function(req,res,next){
     //var abspath=app.use('carPhoto');
+    //console.log(req.file);
+    //console.log('sss');
     car.count({},function(err,index)
     {
         if(err) return next(err);
@@ -47,10 +49,18 @@ router.post('/add',upload.single('carpic'),function(req,res,next){
 });
 //删除汽车
 router.post('/:id/delete',function(req,res,next){
-    car.find({_id:req.params.id},function(req,doc){
-       if(!doc){
-           res.json({status:"-1",msg:"不存在该id"})
+    console.log(req.params.id);
+    car.findById(req.params.id,function(err,doc){
+        if(err) return next(err);
+        if(!doc){
+           res.json({status:"-1",msg:"不存在该id"});
+            return
        }
+        if(doc.isRent='1'){
+            //车辆被使用当中
+            res.json({status:"-1",msg:'异常'});
+            return
+        }
         car.update({_id:req.params.id},{$set:{status:"-1"}},function(err){
             if(err) return next(err);
             res.json({status:"0",msg:"删除成功"})
@@ -61,13 +71,18 @@ router.post('/:id/delete',function(req,res,next){
 });
 
 //更新汽车信息
-router.post('/:id/updateinfo',update.single('carpic'),function(req,res,next){
+router.post('/:id/updateinfo',upload.single('carpic'),function(req,res,next){
     car.find({_id:req.params.id},function(err,doc){
         if(!doc){
             res.json({status:"-1",msg:"不存在该id"})
         }
         car.update({_id:req.params.id},{$set:{photo:'upload/'+req.file.filename,info:req.body.car.info,
-            brand:req.body.car.brand,isRent:req.body.car.isRent,rentPriceInfo:rea.body.car.rentPriceInfo}});
+            brand:req.body.car.brand,rentPriceInfo:req.body.car.rentPriceInfo}},function(err){
+            if(err) return next(err);
+            res.json({status:"0",msg:"修改成功"});
+        });
+
+
     });
 
 });
