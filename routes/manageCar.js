@@ -37,7 +37,8 @@ router.post('/add',upload.single('carpic'),function(req,res,next){
             brand:req.body.car.brand,
             isRent:req.body.car.isRent,
             rentPriceInfo:req.body.car.rentPriceInfo,
-            status:"0"
+            status:"0",
+            isUnderReparing:"0"
         },function(err){
             if(err) return next(err);
             res.redirect('/car');

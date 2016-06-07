@@ -29,8 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/car',manageCar);
 app.use('/rent',rentCar);
-//app.use('/repair',repair);
-app.use('/return',rentCar);
+app.use('/repair',repair);
+app.use('/return',returnCar);
 
 
 //404处理页面

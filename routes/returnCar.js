@@ -14,8 +14,13 @@ var moment=require('moment');
 router.post('/add',upload.array(),function(req,res,next){
         var temp=req.body;
    //涉及到car表和order表
-    order.find({orderIndex:parseInt(temp.orderIndex)},function(err,doc){
-        car.update({carIndexNum:doc[0].carIndexNum},{$set:{
+    order.findOne({orderIndex:parseInt(temp.orderIndex)},function(err,doc){
+        if(err) return next(err);
+        if(!doc){
+            res.send('不存在订单');
+            return
+        }
+        car.update({carIndexNum:doc.carIndexNum},{$set:{
             isRent:'0'
         }},function(err){
             if(err) return next(err);
@@ -25,6 +30,7 @@ router.post('/add',upload.array(),function(req,res,next){
         if(err) return next(err);
     });
 
+
     returncar.create({
         //carIndexNum:parseInt(temp.carIndexNum,10),
         orderIndex:parseInt(temp.orderIndex),
@@ -32,10 +38,10 @@ router.post('/add',upload.array(),function(req,res,next){
         amount:parseFloat(temp.amount),
         status:'0'
 
-    },function(err){
+    },function(err){es.json({status:'0',msg:'',data:{}})
+    });
         if(err) return next(err);
-        res.json({status:'0',msg:'',data:{}})
-    })
+
 
 
 });
@@ -43,20 +49,28 @@ router.post('/add',upload.array(),function(req,res,next){
 router.get('/',function(req,res,next){
     returncar.find({status:'0'},function(err,doc){
         if(err) return next(err);
-        res.render('returnCarList',{title:"还车列表",returnLogs:doc})
+        res.render('returnCarList',{title:"还车列表",returnLogs:doc});
+        //res.json({retunlogs:doc});
+
+
     })
 });
+
+
 //删除还车记录
 router.post('/:id/delete',upload.array(),function(req,res,next){
 //查询
     returncar.update({_id:req.params.id},{$set:{status:'1'}},function(err){
-        if(err) next(err);
+        if(err) return next(err);
+        res.json({status:"0",msg:"成功",data:{}})
     })
 });
 //修改还车记录
 router.post('/:id/update',upload.array(),function(req,res,next){
-    returncar.update({_id:req.params.id},{$set:{amount:req.body.amount,retunDate:req.body.retunDate}},function(err){
+    returncar.update({_id:req.params.id},{$set:{amount:req.body.amount,returnDate:req.body.returnDate}},function(err){
         if(err) return next(err);
+        res.json({status:"0",msg:"成功",data:{}})
+
     })
 });
 

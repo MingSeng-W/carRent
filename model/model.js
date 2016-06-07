@@ -14,7 +14,9 @@ var car=new mongoose.Schema({
     isRent:String,
     //isRent:'0'代表可借,'1'代表不可借
     rentPriceInfo:String,
-    status:String
+    status:String,
+    isUnderRepairing:String
+    //0不是,1是
 });
 
 
@@ -24,7 +26,9 @@ var repair=new mongoose.Schema(
         repairIndex:Number,
         carIndexNum:{type:Number,ref:'car'},
         amount:Number,
-        status:Number
+        status:String,
+        isFinish:String
+        //'1'删除,'0'未删除
     }
 );
 
